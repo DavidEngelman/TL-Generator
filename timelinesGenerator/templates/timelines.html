@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Timeline Generator</title>
+
+    <style>
+        body, html {
+            font-family: arial, sans-serif;
+            font-size: 11pt;
+        }
+
+        textarea {
+            width: 800px;
+            height: 200px;
+        }
+
+        .buttons {
+            margin: 20px 0;
+        }
+
+        .buttons input {
+            padding: 10px;
+        }
+
+        .tl-div {
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://unpkg.com/vis-timeline@5.1.0/dist/vis-timeline-graph2d.min.js"></script>
+    <link href="https://unpkg.com/vis-timeline@5.1.0/dist/vis-timeline-graph2d.min.css" rel="stylesheet"
+          type="text/css"/>
+
+</head>
+<body>
+
+<h1>Timelines Generator</h1>
+
+<form action={% url "upload_file" %} method="POST" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+        <div class="col-md-8">
+            <input type="file" name="file" id="file" required="True" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+            <button class="btn btn-primary"><span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<div id=tl-container></div>
+
+
+<script>
+
+    var data = {{JSON_data|safe}};
+
+
+    console.log(data)
+
+    data.forEach(function (item, index) {
+
+        $('#tl-container').append('<div id=' + index + ' class="tl-div"' + '>' + '</div>');
+
+        $('#' + index).append('<h2>'+ item.name + ' - ' + item.events.length + '</h2')
+
+        $('#' + index).append('<div id=tl-' + index + ' class="tl-div"' + '>' + '</div>');
+
+        var items = new vis.DataSet();
+        // create a timeline
+        var container = document.getElementById('tl-' + index);
+        var options = {
+          width: '100%',
+          height: '175px',
+        }
+        var timeline = new vis.Timeline(container, items, options);
+        items.add(item.events);
+        timeline.fit();
+
+    });
+
+</script>
+</body>
+</html>
