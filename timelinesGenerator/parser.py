@@ -63,5 +63,4 @@ class FileManager:
 
             timelines.append(timeline)
 
-
         return json.dumps(timelines, default=dateToJson)
