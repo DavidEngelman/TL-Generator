@@ -31,6 +31,7 @@ decorator==4.3.0
 defer==1.0.6
 dill==0.2.7.1
 Django==2.2.4
+gunicorn==19.9.0
 django-npm==1.0.0
 docker==3.5.0
 docker-pycreds==0.3.0
