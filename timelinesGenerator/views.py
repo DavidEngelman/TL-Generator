@@ -25,8 +25,6 @@ def upload_file(request):
 
         data = FileManager.parse(file)
 
-        print(data, type(data))
-
         return render(request, 'timelines.html', {'JSON_data': data})
 
 
