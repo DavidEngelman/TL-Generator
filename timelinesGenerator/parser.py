@@ -20,7 +20,6 @@ class FileManager:
     @staticmethod
     def preproc(fn):
         df = pd.read_excel(fn, header=0)
-
         df.dropna(axis=1, how='all')
 
         df = df.rename(index=str, columns={"name event ": "name event"})
