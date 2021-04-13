@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vis-timeline": "^5.1.0"
+    "vis-timeline": "^7.4.4"
   }
 }
